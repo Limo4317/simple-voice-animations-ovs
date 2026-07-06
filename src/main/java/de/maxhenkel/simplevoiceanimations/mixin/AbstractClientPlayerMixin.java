@@ -1,5 +1,6 @@
 package de.maxhenkel.simplevoiceanimations.mixin;
 
+import de.maxhenkel.simplevoiceanimations.interfaces.AnimationData;
 import de.maxhenkel.simplevoiceanimations.interfaces.AnimationDataExtension;
 import net.minecraft.client.player.AbstractClientPlayer;
 import org.spongepowered.asm.mixin.Mixin;
@@ -9,16 +10,11 @@ import org.spongepowered.asm.mixin.Unique;
 public class AbstractClientPlayerMixin implements AnimationDataExtension {
 
     @Unique
-    private float speechVolume;
+    private final AnimationData data = new AnimationData();
 
     @Override
-    public float simplevoiceanimations$getSpeechVolume() {
-        return speechVolume;
-    }
-
-    @Override
-    public void simplevoiceanimations$setSpeechVolume(float speechVolume) {
-        this.speechVolume = speechVolume;
+    public AnimationData simplevoiceanimations$getData() {
+        return data;
     }
 
 }

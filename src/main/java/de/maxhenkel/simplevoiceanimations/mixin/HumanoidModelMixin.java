@@ -1,6 +1,7 @@
 package de.maxhenkel.simplevoiceanimations.mixin;
 
-import de.maxhenkel.simplevoiceanimations.interfaces.AnimationRenderDataExtension;
+import de.maxhenkel.simplevoiceanimations.interfaces.AnimationRenderExtension;
+import de.maxhenkel.simplevoiceanimations.interfaces.AnimationRenderState;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
@@ -19,11 +20,12 @@ public class HumanoidModelMixin {
     public ModelPart head;
 
     @Inject(method = "setupAnim(Lnet/minecraft/client/renderer/entity/state/HumanoidRenderState;)V", at = @At("RETURN"))
-    public void setupAnim(HumanoidRenderState state, CallbackInfo ci) {
-        if (!(state instanceof AnimationRenderDataExtension stateExtension)) {
+    public void setupAnim(HumanoidRenderState s, CallbackInfo ci) {
+        if (!(s instanceof AnimationRenderExtension stateExtension)) {
             return;
         }
-        head.yScale = stateExtension.simplevoiceanimations$getHeadYScale();
+        AnimationRenderState state = stateExtension.simplevoiceanimations$getState();
+        head.yScale = state.headYScale;
     }
 
 }

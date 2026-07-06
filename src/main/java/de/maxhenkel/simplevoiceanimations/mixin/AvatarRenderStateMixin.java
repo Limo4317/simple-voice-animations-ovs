@@ -1,23 +1,19 @@
 package de.maxhenkel.simplevoiceanimations.mixin;
 
-import de.maxhenkel.simplevoiceanimations.interfaces.AnimationRenderDataExtension;
+import de.maxhenkel.simplevoiceanimations.interfaces.AnimationRenderExtension;
+import de.maxhenkel.simplevoiceanimations.interfaces.AnimationRenderState;
 import net.minecraft.client.renderer.entity.state.AvatarRenderState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 
 @Mixin(AvatarRenderState.class)
-public class AvatarRenderStateMixin implements AnimationRenderDataExtension {
+public class AvatarRenderStateMixin implements AnimationRenderExtension {
 
     @Unique
-    private float headYScale;
+    private final AnimationRenderState state = new AnimationRenderState();
 
     @Override
-    public float simplevoiceanimations$getHeadYScale() {
-        return headYScale;
-    }
-
-    @Override
-    public void simplevoiceanimations$setHeadYScale(float headYScale) {
-        this.headYScale = headYScale;
+    public AnimationRenderState simplevoiceanimations$getState() {
+        return state;
     }
 }

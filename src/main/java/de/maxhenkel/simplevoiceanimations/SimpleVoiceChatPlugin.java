@@ -1,5 +1,6 @@
 package de.maxhenkel.simplevoiceanimations;
 
+import de.maxhenkel.simplevoiceanimations.interfaces.AnimationData;
 import de.maxhenkel.simplevoiceanimations.interfaces.AnimationDataExtension;
 import de.maxhenkel.simplevoiceanimations.utils.AudioUtils;
 import de.maxhenkel.voicechat.api.VoicechatPlugin;
@@ -48,7 +49,8 @@ public class SimpleVoiceChatPlugin implements VoicechatPlugin {
         if (!(player instanceof AnimationDataExtension dataExtension)) {
             return;
         }
-        dataExtension.simplevoiceanimations$setSpeechVolume(AudioUtils.getSpeechVolume(audio));
+        AnimationData animationData = dataExtension.simplevoiceanimations$getData();
+        animationData.speechVolume = AudioUtils.getSpeechVolume(audio);
     }
 
 }
