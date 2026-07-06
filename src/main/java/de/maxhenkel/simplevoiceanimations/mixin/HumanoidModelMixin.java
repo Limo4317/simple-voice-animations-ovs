@@ -25,7 +25,9 @@ public class HumanoidModelMixin {
             return;
         }
         AnimationRenderState state = stateExtension.simplevoiceanimations$getState();
+        head.xScale = state.headXScale;
         head.yScale = state.headYScale;
+        head.zScale = state.headZScale;
     }
 
 }
