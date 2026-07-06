@@ -8,9 +8,15 @@ public class AnimationData {
 
     public float targetVolume;
     private float currentRenderScale = 1F;
+    private long lastUpdate = 0L;
 
     public void addVoiceData(short[] audio) {
-        this.targetVolume = AudioUtils.getSpeechVolume(audio);
+        lastUpdate = System.currentTimeMillis();
+        if (audio.length > 0) {
+            targetVolume = AudioUtils.getSpeechVolume(audio);
+        } else {
+            targetVolume = 0F;
+        }
     }
 
     public float getHeadYScale() {
@@ -22,6 +28,10 @@ public class AnimationData {
 
         float smoothingFactor = 0.75F;
         float blend = 1F - (float) Math.pow(1F - smoothingFactor, deltaTicks);
+
+        if (targetVolume != 0F && System.currentTimeMillis() - lastUpdate > 200L) {
+            targetVolume = 0F;
+        }
 
         currentRenderScale = Mth.lerp(blend, currentRenderScale, targetVolume);
 
