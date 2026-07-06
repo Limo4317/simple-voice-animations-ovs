@@ -24,7 +24,7 @@ public class RenderStateExtractor {
     }
 
     private static <AvatarlikeEntity extends Avatar & ClientAvatarEntity> void extractYScale(AvatarlikeEntity entity, AvatarRenderState state, float partialTicks, AnimationData data, AnimationRenderState renderState) {
-        renderState.headYScale = 1F + data.speechVolume * 0.5F;
+        renderState.headYScale = data.getHeadYScale();
     }
 
 }

@@ -2,7 +2,6 @@ package de.maxhenkel.simplevoiceanimations;
 
 import de.maxhenkel.simplevoiceanimations.interfaces.AnimationData;
 import de.maxhenkel.simplevoiceanimations.interfaces.AnimationDataExtension;
-import de.maxhenkel.simplevoiceanimations.utils.AudioUtils;
 import de.maxhenkel.voicechat.api.VoicechatPlugin;
 import de.maxhenkel.voicechat.api.events.*;
 import net.minecraft.client.Minecraft;
@@ -50,7 +49,7 @@ public class SimpleVoiceChatPlugin implements VoicechatPlugin {
             return;
         }
         AnimationData animationData = dataExtension.simplevoiceanimations$getData();
-        animationData.speechVolume = AudioUtils.getSpeechVolume(audio);
+        animationData.addVoiceData(audio);
     }
 
 }
