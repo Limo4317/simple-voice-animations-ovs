@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "id": "simplevoiceanimations",
+  "version": "${mod_version}",
+  "name": "Simple Voice Animations",
+  "description": "Simple Voice Animations",
+  "authors": [
+    "Max Henkel"
+  ],
+  "contact": {
+    "sources": "https://github.com/henkelmax/simple-voice-animations",
+    "issues": "https://github.com/henkelmax/simple-voice-animations/issues"
+  },
+  "license": "All Rights Reserved",
+  "icon": "icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "de.maxhenkel.simplevoiceanimations.SimpleVoiceAnimations"
+    ],
+    "voicechat": [
+      "de.maxhenkel.simplevoiceanimations.SimpleVoiceChatPlugin"
+    ]
+  },
+  "mixins": [
+    "simplevoiceanimations.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": "${fabric_loader_dependency}",
+    "minecraft": "${minecraft_dependency}",
+    "voicechat_api": ">=${voicechat_api_version}",
+    "cloth-config2": ">=${cloth_config_version}"
+  },
+  "conflicts": {
+    "optifabric": "*"
+  },
+  "breaks": {
+    "fabric-api": "${fabric_api_dependency_breaks}",
+    "voicechat_api": "<${voicechat_api_version}"
+  },
+  "suggests": {
+    "modmenu": "*"
+  }
+}
