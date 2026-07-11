@@ -1,8 +1,8 @@
 package de.maxhenkel.simplevoiceanimations.mixin;
 
-import de.maxhenkel.simplevoiceanimations.SplitHeadModel;
 import de.maxhenkel.simplevoiceanimations.interfaces.AnimationRenderExtension;
 import de.maxhenkel.simplevoiceanimations.interfaces.AnimationRenderState;
+import de.maxhenkel.simplevoiceanimations.interfaces.SplitHeadExtension;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
@@ -33,20 +33,8 @@ public class HumanoidModelMixin {
         head.xScale = state.headXScale;
         head.yScale = state.headYScale;
         head.zScale = state.headZScale;
-        if (!head.hasChild(SplitHeadModel.HEAD_TOP)) {
-            return;
-        }
-        ModelPart headTop = head.getChild(SplitHeadModel.HEAD_TOP);
-        ModelPart headBottom = head.getChild(SplitHeadModel.HEAD_BOTTOM);
-        head.skipDraw = state.splitHead;
-        headTop.visible = state.splitHead;
-        headBottom.visible = state.splitHead;
-        if (state.splitHead) {
-            headTop.getChild(SplitHeadModel.HAT_TOP).visible = hat.visible;
-            headBottom.getChild(SplitHeadModel.HAT_BOTTOM).visible = hat.visible;
-            hat.visible = false;
-            headTop.xRot = -state.headSplitRotation;
-        }
+        ((SplitHeadExtension) (Object) head).simplevoiceanimations$setSplitHead(state.splitHead, state.headSplitHeight, state.headSplitRotation);
+        ((SplitHeadExtension) (Object) hat).simplevoiceanimations$setSplitHead(state.splitHead, state.headSplitHeight, state.headSplitRotation);
     }
 
 }

@@ -49,6 +49,7 @@ public class RenderStateExtractor {
 
     private static <AvatarlikeEntity extends Avatar & ClientAvatarEntity> void extractSplit(AvatarlikeEntity entity, AvatarRenderState state, float partialTicks, AnimationData data, AnimationRenderState renderState) {
         renderState.splitHead = true;
+        renderState.headSplitHeight = SimpleVoiceAnimations.CLIENT_CONFIG.headSplitHeight.get();
         renderState.headSplitRotation = data.getAnimationProgress() * MAX_HEAD_SPLIT_ROTATION;
     }
 

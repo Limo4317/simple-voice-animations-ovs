@@ -6,6 +6,7 @@ public class AnimationRenderState {
     public float headYScale = 1F;
     public float headZScale = 1F;
     public boolean splitHead;
+    public float headSplitHeight;
     public float headSplitRotation;
 
 }

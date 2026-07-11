@@ -10,7 +10,7 @@
     "AvatarRendererMixin",
     "AvatarRenderStateMixin",
     "HumanoidModelMixin",
-    "PlayerModelMixin"
+    "ModelPartMixin"
   ],
   "injectors": {
     "defaultRequire": 1
