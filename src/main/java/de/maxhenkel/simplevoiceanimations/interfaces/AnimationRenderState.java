@@ -2,8 +2,10 @@ package de.maxhenkel.simplevoiceanimations.interfaces;
 
 public class AnimationRenderState {
 
-    public float headXScale;
-    public float headYScale;
-    public float headZScale;
+    public float headXScale = 1F;
+    public float headYScale = 1F;
+    public float headZScale = 1F;
+    public boolean splitHead;
+    public float headSplitRotation;
 
 }

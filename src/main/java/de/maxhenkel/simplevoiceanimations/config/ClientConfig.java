@@ -14,7 +14,8 @@ public class ClientConfig {
     public enum HeadAnimationStyle {
         NONE,
         SCALE_Y,
-        SCALE_FULL
+        SCALE_FULL,
+        SPLIT
     }
 
 }

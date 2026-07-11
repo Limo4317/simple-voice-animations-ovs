@@ -9,7 +9,8 @@
   "client": [
     "AvatarRendererMixin",
     "AvatarRenderStateMixin",
-    "HumanoidModelMixin"
+    "HumanoidModelMixin",
+    "PlayerModelMixin"
   ],
   "injectors": {
     "defaultRequire": 1

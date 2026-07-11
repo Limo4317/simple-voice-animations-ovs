@@ -19,7 +19,7 @@ public class AnimationData {
         }
     }
 
-    public float getHeadYScale() {
+    public float getAnimationProgress() {
         float deltaTicks = Minecraft.getInstance().getDeltaTracker().getGameTimeDeltaPartialTick(true);
 
         if (deltaTicks > 2F) {
@@ -35,7 +35,7 @@ public class AnimationData {
 
         currentRenderScale = Mth.lerp(blend, currentRenderScale, targetVolume);
 
-        return 1F + currentRenderScale * 0.5F;
+        return currentRenderScale;
     }
 
 }
