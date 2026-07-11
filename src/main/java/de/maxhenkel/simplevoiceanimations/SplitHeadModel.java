@@ -36,23 +36,31 @@ public class SplitHeadModel {
      * their inflation.
      */
     public static void addSplitHeadParts(PartDefinition head, CubeDeformation deformation) {
-        CubeDeformation hatDeformation = deformation.extend(0.5F);
-        PartDefinition headTop = head.addOrReplaceChild(HEAD_TOP, new SplitCubeListBuilder()
-                        .box(0, 0, -4F, -4F, -8F, 8F, 4F, 8F, deformation, ALL_FACES),
-                PartPose.offset(0F, -4F, 4F));
-        headTop.addOrReplaceChild(HAT_TOP, new SplitCubeListBuilder()
-                        .box(32, 0, -4F, -4F, -8F, 8F, 4F, 8F, hatDeformation, ALL_FACES),
-                PartPose.ZERO);
-        PartDefinition headBottom = head.addOrReplaceChild(HEAD_BOTTOM, new SplitCubeListBuilder()
-                        .box(0, 4, -4F, -4F, -4F, 8F, 4F, 8F, deformation, SIDE_FACES)
-                        .box(0, 0, -4F, 0F, -4F, 8F, 0F, 8F, deformation, BOTTOM_FACE)
-                        .box(8, 0, -4F, -4F, -4F, 8F, 0F, 8F, deformation, TOP_FACE),
-                PartPose.ZERO);
-        headBottom.addOrReplaceChild(HAT_BOTTOM, new SplitCubeListBuilder()
-                        .box(32, 4, -4F, -4F, -4F, 8F, 4F, 8F, hatDeformation, SIDE_FACES)
-                        .box(32, 0, -4F, 0F, -4F, 8F, 0F, 8F, hatDeformation, BOTTOM_FACE)
-                        .box(40, 0, -4F, -4F, -4F, 8F, 0F, 8F, hatDeformation, TOP_FACE),
-                PartPose.ZERO);
+        PartDefinition headTop = head.addOrReplaceChild(HEAD_TOP, topCubes(0, deformation), PartPose.offset(0F, -4F, 4F));
+        headTop.addOrReplaceChild(HAT_TOP, topCubes(32, deformation.extend(0.5F)), PartPose.ZERO);
+        PartDefinition headBottom = head.addOrReplaceChild(HEAD_BOTTOM, bottomCubes(0, deformation), PartPose.ZERO);
+        headBottom.addOrReplaceChild(HAT_BOTTOM, bottomCubes(32, deformation.extend(0.5F)), PartPose.ZERO);
+    }
+
+    private static CubeListBuilder topCubes(int xTexOffs, CubeDeformation deformation) {
+        return new SplitCubeListBuilder()
+                .box(xTexOffs, 0, -4F, -4F - deformation.growY / 2F, -8F, 8F, 4F, 8F, growHalfVertically(deformation), ALL_FACES);
+    }
+
+    private static CubeListBuilder bottomCubes(int xTexOffs, CubeDeformation deformation) {
+        return new SplitCubeListBuilder()
+                .box(xTexOffs, 4, -4F, -4F + deformation.growY / 2F, -4F, 8F, 4F, 8F, growHalfVertically(deformation), SIDE_FACES)
+                .box(xTexOffs, 0, -4F, 0F, -4F, 8F, 0F, 8F, deformation, BOTTOM_FACE)
+                .box(xTexOffs + 8, 0, -4F, -4F, -4F, 8F, 0F, 8F, new CubeDeformation(deformation.growX, 0F, deformation.growZ), TOP_FACE);
+    }
+
+    /**
+     * Half the vertical inflation, combined with shifting the box by the other half, makes
+     * the halves only grow away from the split plane, so they meet exactly at the seam
+     * instead of overlapping.
+     */
+    private static CubeDeformation growHalfVertically(CubeDeformation deformation) {
+        return new CubeDeformation(deformation.growX, deformation.growY / 2F, deformation.growZ);
     }
 
     private static class SplitCubeListBuilder extends CubeListBuilder {
