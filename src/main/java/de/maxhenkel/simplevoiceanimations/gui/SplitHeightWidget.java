@@ -30,7 +30,7 @@ public class SplitHeightWidget extends AbstractWidget {
         }
         PlayerFaceExtractor.extractRenderState(graphics, player.getSkin(), getX() + BAR_OVERHANG, getY(), getHeight());
         int barY = getY() + Math.round(getHeight() - SimpleVoiceAnimationsClient.CLIENT_CONFIG.getHeadSplitHeight() / HEAD_PIXELS * getHeight());
-        graphics.fill(getX(), barY - 1, getRight(), barY + 1, isHoveredOrFocused() ? 0xFFFFFFFF : 0xFFAAAAAA);
+        graphics.fill(getX(), barY - 1, getRight(), barY + 1, isHovered() ? 0xFFFFFFFF : 0xFFAAAAAA);
     }
 
     @Override
