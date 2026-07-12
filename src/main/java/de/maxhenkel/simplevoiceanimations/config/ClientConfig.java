@@ -1,6 +1,7 @@
 package de.maxhenkel.simplevoiceanimations.config;
 
 import de.maxhenkel.configbuilder.ConfigBuilder;
+import de.maxhenkel.configbuilder.entry.BooleanConfigEntry;
 import de.maxhenkel.configbuilder.entry.EnumConfigEntry;
 import de.maxhenkel.configbuilder.entry.FloatConfigEntry;
 import de.maxhenkel.simplevoiceanimations.sync.ClientPreferencesSync;
@@ -14,6 +15,7 @@ public class ClientConfig {
 
     private final EnumConfigEntry<HeadAnimationStyle> headAnimationStyle;
     private final FloatConfigEntry headSplitHeight;
+    private final BooleanConfigEntry setUp;
 
     @Nullable
     private Preferences localPreferences;
@@ -23,6 +25,9 @@ public class ClientConfig {
         headSplitHeight = builder.floatEntry("head_split_height", 2F, DEFAULT_PREFERENCES.getHeadSplitHeight(), Preferences.MAX_SPLIT_HEIGHT,
                 "The height of the head split in pixels, measured from the bottom of the head"
         );
+        setUp = builder.booleanEntry("set_up", false,
+                "If the player has configured their head animation"
+        );
     }
 
     public HeadAnimationStyle getHeadAnimationStyle() {
@@ -31,8 +36,17 @@ public class ClientConfig {
 
     public void setHeadAnimationStyle(HeadAnimationStyle style) {
         headAnimationStyle.set(style).save();
+        setSetUp(true);
         getLocalPreferences().setHeadAnimationStyle(headAnimationStyle.get());
         ClientPreferencesSync.sendLocalPreferences();
+    }
+
+    public boolean isSetUp() {
+        return setUp.get();
+    }
+
+    public void setSetUp(boolean setUp) {
+        this.setUp.set(setUp).save();
     }
 
     public float getHeadSplitHeight() {
