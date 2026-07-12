@@ -6,7 +6,6 @@ import de.maxhenkel.simplevoiceanimations.interfaces.AnimationRenderExtension;
 import de.maxhenkel.simplevoiceanimations.interfaces.AnimationRenderState;
 import de.maxhenkel.simplevoiceanimations.sync.ClientPreferencesSync;
 import de.maxhenkel.simplevoiceanimations.sync.Preferences;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.ClientAvatarEntity;
 import net.minecraft.client.renderer.entity.state.AvatarRenderState;
 import net.minecraft.util.Mth;
@@ -24,7 +23,7 @@ public class RenderStateExtractor {
         renderState.headZScale = 1F;
         renderState.splitHead = false;
         renderState.headSplitRotation = 0F;
-        Preferences preferences = getPreferences(entity);
+        Preferences preferences = ClientPreferencesSync.getPreferences(entity.getUUID());
         switch (preferences.getHeadAnimationStyle()) {
             case SCALE_Y:
                 extractYScale(entity, state, partialTicks, animationData, renderState);
@@ -36,16 +35,6 @@ public class RenderStateExtractor {
                 extractSplit(entity, state, partialTicks, animationData, renderState, preferences);
                 break;
         }
-    }
-
-    private static <AvatarlikeEntity extends Avatar & ClientAvatarEntity> Preferences getPreferences(AvatarlikeEntity entity) {
-        if (entity != Minecraft.getInstance().player) {
-            Preferences synced = ClientPreferencesSync.getPreferences(entity.getUUID());
-            if (synced != null) {
-                return synced;
-            }
-        }
-        return SimpleVoiceAnimationsClient.CLIENT_CONFIG.getLocalPreferences();
     }
 
     private static <AvatarlikeEntity extends Avatar & ClientAvatarEntity> void extractYScale(AvatarlikeEntity entity, AvatarRenderState state, float partialTicks, AnimationData data, AnimationRenderState renderState) {

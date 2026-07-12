@@ -10,6 +10,8 @@ import javax.annotation.Nullable;
 
 public class ClientConfig {
 
+    public static Preferences DEFAULT_PREFERENCES = new Preferences(HeadAnimationStyle.NONE, 2F);
+
     private final EnumConfigEntry<HeadAnimationStyle> headAnimationStyle;
     private final FloatConfigEntry headSplitHeight;
 
@@ -17,8 +19,8 @@ public class ClientConfig {
     private Preferences localPreferences;
 
     public ClientConfig(ConfigBuilder builder) {
-        headAnimationStyle = builder.enumEntry("head_animation_style", HeadAnimationStyle.SCALE_Y);
-        headSplitHeight = builder.floatEntry("head_split_height", 2F, Preferences.MIN_SPLIT_HEIGHT, Preferences.MAX_SPLIT_HEIGHT,
+        headAnimationStyle = builder.enumEntry("head_animation_style", DEFAULT_PREFERENCES.getHeadAnimationStyle());
+        headSplitHeight = builder.floatEntry("head_split_height", 2F, DEFAULT_PREFERENCES.getHeadSplitHeight(), Preferences.MAX_SPLIT_HEIGHT,
                 "The height of the head split in pixels, measured from the bottom of the head"
         );
     }
