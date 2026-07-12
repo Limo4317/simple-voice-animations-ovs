@@ -22,7 +22,7 @@ public class ClientConfig {
 
     public ClientConfig(ConfigBuilder builder) {
         headAnimationStyle = builder.enumEntry("head_animation_style", DEFAULT_PREFERENCES.getHeadAnimationStyle());
-        headSplitHeight = builder.floatEntry("head_split_height", 2F, DEFAULT_PREFERENCES.getHeadSplitHeight(), Preferences.MAX_SPLIT_HEIGHT,
+        headSplitHeight = builder.floatEntry("head_split_height", DEFAULT_PREFERENCES.getHeadSplitHeight(), Preferences.MIN_SPLIT_HEIGHT, Preferences.MAX_SPLIT_HEIGHT,
                 "The height of the head split in pixels, measured from the bottom of the head"
         );
         setUp = builder.booleanEntry("set_up", false,
