@@ -70,7 +70,8 @@ public class ClientConfig {
         NONE(false),
         SCALE_Y(false),
         SCALE_FULL(false),
-        SPLIT(true);
+        SPLIT_HINGE(true),
+        SPLIT_VERTICAL(true);
 
         private final boolean hasSplit;
 

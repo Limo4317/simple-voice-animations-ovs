@@ -28,12 +28,15 @@ public class ModelPartMixin implements SplitHeadExtension {
     private float splitHeight;
     @Unique
     private float splitRotation;
+    @Unique
+    private float splitDistance;
 
     @Override
-    public void simplevoiceanimations$setSplitHead(boolean split, float height, float rotation) {
+    public void simplevoiceanimations$setSplitHead(boolean split, float height, float rotation, float distance) {
         splitHead = split;
         splitHeight = height;
         splitRotation = rotation;
+        splitDistance = distance;
     }
 
     @Inject(method = "compile", at = @At("HEAD"), cancellable = true)
@@ -42,7 +45,7 @@ public class ModelPartMixin implements SplitHeadExtension {
             return;
         }
         ci.cancel();
-        SplitHeadRenderer.render(cubes, pose, buffer, lightCoords, overlayCoords, color, splitHeight, splitRotation);
+        SplitHeadRenderer.render(cubes, pose, buffer, lightCoords, overlayCoords, color, splitHeight, splitRotation, splitDistance);
     }
 
 }

@@ -13,6 +13,7 @@ import net.minecraft.world.entity.Avatar;
 public class RenderStateExtractor {
 
     private static final float MAX_HEAD_SPLIT_ROTATION = Mth.DEG_TO_RAD * 60F;
+    private static final float MAX_HEAD_SPLIT_DISTANCE = 0.25F;
 
     public static <AvatarlikeEntity extends Avatar & ClientAvatarEntity> void extractRenderState(AvatarlikeEntity entity, AvatarRenderState state, float partialTicks, AnimationDataExtension entityExtension, AnimationRenderExtension stateExtension) {
         Preferences preferences = ClientPreferencesSync.getPreferences(entity.getUUID());
@@ -25,6 +26,7 @@ public class RenderStateExtractor {
         renderState.headZScale = 1F;
         renderState.splitHead = false;
         renderState.headSplitRotation = 0F;
+        renderState.headSplitDistance = 0F;
         switch (preferences.getHeadAnimationStyle()) {
             case SCALE_Y:
                 renderState.headYScale = 1F + animationProgress * 0.5F;
@@ -35,10 +37,15 @@ public class RenderStateExtractor {
                 renderState.headYScale = scale;
                 renderState.headZScale = scale;
                 break;
-            case SPLIT:
+            case SPLIT_HINGE:
                 renderState.splitHead = true;
                 renderState.headSplitHeight = preferences.getHeadSplitHeight();
                 renderState.headSplitRotation = animationProgress * MAX_HEAD_SPLIT_ROTATION;
+                break;
+            case SPLIT_VERTICAL:
+                renderState.splitHead = true;
+                renderState.headSplitHeight = preferences.getHeadSplitHeight();
+                renderState.headSplitDistance = animationProgress * MAX_HEAD_SPLIT_DISTANCE;
                 break;
         }
     }

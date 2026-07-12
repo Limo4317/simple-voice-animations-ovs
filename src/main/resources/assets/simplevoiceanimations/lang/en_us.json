@@ -3,11 +3,12 @@
   "message.simplevoiceanimations.incompatible": "Incompatible Simple Voice Animations version",
   "message.simplevoiceanimations.not_set_up": "You have not set up your head animation yet. Press %s to configure it",
   "gui.simplevoiceanimations.settings.title": "Simple Voice Animations",
-  "gui.simplevoiceanimations.settings.style": "Animation Style",
+  "gui.simplevoiceanimations.settings.style": "Head Animation Style",
   "gui.simplevoiceanimations.settings.style.none": "None",
   "gui.simplevoiceanimations.settings.style.scale_y": "Scale Height",
   "gui.simplevoiceanimations.settings.style.scale_full": "Scale",
-  "gui.simplevoiceanimations.settings.style.split": "Split Head",
+  "gui.simplevoiceanimations.settings.style.split_hinge": "Split Head (Hinge)",
+  "gui.simplevoiceanimations.settings.style.split_vertical": "Split Head (Vertical)",
   "gui.simplevoiceanimations.settings.split_height": "Split Height",
   "gui.simplevoiceanimations.settings.split_height.description": "Drag the bar to set where the head splits open"
 }

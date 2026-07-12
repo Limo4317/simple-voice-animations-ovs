@@ -26,9 +26,9 @@ public class AnimationSettingsScreen extends Screen {
     protected void init() {
         addRenderableWidget(CycleButton.builder(AnimationSettingsScreen::getStyleName, SimpleVoiceAnimationsClient.CLIENT_CONFIG.getHeadAnimationStyle())
                 .withValues(ClientConfig.HeadAnimationStyle.values())
-                .create(width / 2 - 75, 26, 150, 20, Component.translatable("gui.simplevoiceanimations.settings.style"), (button, style) -> {
+                .create(width / 2 - 125, 26, 250, 20, Component.translatable("gui.simplevoiceanimations.settings.style"), (button, style) -> {
                     SimpleVoiceAnimationsClient.CLIENT_CONFIG.setHeadAnimationStyle(style);
-                    splitHeightWidget.visible = style == ClientConfig.HeadAnimationStyle.SPLIT;
+                    splitHeightWidget.visible = style.hasSplit();
                 }));
         addRenderableWidget(new PlayerPreviewWidget(width / 2 - 30, 48, 60, 80, 30F));
         splitHeightWidget = new SplitHeightWidget(0, 144, FACE_SIZE);

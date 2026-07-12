@@ -8,5 +8,6 @@ public class AnimationRenderState {
     public boolean splitHead;
     public float headSplitHeight;
     public float headSplitRotation;
+    public float headSplitDistance;
 
 }

@@ -15,9 +15,10 @@ public class SplitHeadRenderer {
 
     private static final float HINGE_Z = 4F;
 
-    public static void render(List<ModelPart.Cube> cubes, PoseStack.Pose pose, VertexConsumer buffer, int lightCoords, int overlayCoords, int color, float splitHeight, float splitRotation) {
+    public static void render(List<ModelPart.Cube> cubes, PoseStack.Pose pose, VertexConsumer buffer, int lightCoords, int overlayCoords, int color, float splitHeight, float splitRotation, float splitDistance) {
         float planeY = -splitHeight;
         Matrix4f topPose = new Matrix4f(pose.pose())
+                .translate(0F, -splitDistance, 0F)
                 .translate(0F, planeY / 16F, HINGE_Z / 16F)
                 .rotateX(-splitRotation)
                 .translate(0F, -planeY / 16F, -HINGE_Z / 16F);

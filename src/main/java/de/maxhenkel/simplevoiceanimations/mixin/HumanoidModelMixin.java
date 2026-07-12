@@ -33,8 +33,8 @@ public class HumanoidModelMixin {
         head.xScale = state.headXScale;
         head.yScale = state.headYScale;
         head.zScale = state.headZScale;
-        ((SplitHeadExtension) (Object) head).simplevoiceanimations$setSplitHead(state.splitHead, state.headSplitHeight, state.headSplitRotation);
-        ((SplitHeadExtension) (Object) hat).simplevoiceanimations$setSplitHead(state.splitHead, state.headSplitHeight, state.headSplitRotation);
+        ((SplitHeadExtension) (Object) head).simplevoiceanimations$setSplitHead(state.splitHead, state.headSplitHeight, state.headSplitRotation, state.headSplitDistance);
+        ((SplitHeadExtension) (Object) hat).simplevoiceanimations$setSplitHead(state.splitHead, state.headSplitHeight, state.headSplitRotation, state.headSplitDistance);
     }
 
 }
