@@ -14,7 +14,7 @@ import java.util.Locale;
 
 public class AnimationSettingsScreen extends Screen {
 
-    private static final int FACE_SIZE = 56;
+    private static final int FACE_SIZE = 64;
 
     private SplitHeightWidget splitHeightWidget;
 
@@ -24,17 +24,16 @@ public class AnimationSettingsScreen extends Screen {
 
     @Override
     protected void init() {
-        Preferences preferences = SimpleVoiceAnimationsClient.CLIENT_CONFIG.getLocalPreferences();
-        addRenderableWidget(CycleButton.builder(AnimationSettingsScreen::getStyleName, preferences.getHeadAnimationStyle())
+        addRenderableWidget(CycleButton.builder(AnimationSettingsScreen::getStyleName, SimpleVoiceAnimationsClient.CLIENT_CONFIG.getHeadAnimationStyle())
                 .withValues(ClientConfig.HeadAnimationStyle.values())
-                .create(width / 2 - 75, 30, 150, 20, Component.translatable("gui.simplevoiceanimations.settings.style"), (button, style) -> {
-                    preferences.setHeadAnimationStyle(style);
+                .create(width / 2 - 75, 26, 150, 20, Component.translatable("gui.simplevoiceanimations.settings.style"), (button, style) -> {
+                    SimpleVoiceAnimationsClient.CLIENT_CONFIG.setHeadAnimationStyle(style);
                     splitHeightWidget.visible = style == ClientConfig.HeadAnimationStyle.SPLIT;
                 }));
-        addRenderableWidget(new PlayerPreviewWidget(width / 2 - 30, 52, 60, 80, 30F));
-        splitHeightWidget = new SplitHeightWidget(0, 140, FACE_SIZE, preferences);
+        addRenderableWidget(new PlayerPreviewWidget(width / 2 - 30, 48, 60, 80, 30F));
+        splitHeightWidget = new SplitHeightWidget(0, 144, FACE_SIZE);
         splitHeightWidget.setX(width / 2 - splitHeightWidget.getWidth() / 2);
-        splitHeightWidget.visible = preferences.getHeadAnimationStyle() == ClientConfig.HeadAnimationStyle.SPLIT;
+        splitHeightWidget.visible = SimpleVoiceAnimationsClient.CLIENT_CONFIG.getHeadAnimationStyle().hasSplit();
         addRenderableWidget(splitHeightWidget);
         addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, button -> onClose()).bounds(width / 2 - 75, height - 28, 150, 20).build());
     }
@@ -42,7 +41,10 @@ public class AnimationSettingsScreen extends Screen {
     @Override
     public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a) {
         super.extractRenderState(graphics, mouseX, mouseY, a);
-        graphics.centeredText(font, title, width / 2, 15, -1);
+        graphics.centeredText(font, title, width / 2, 12, -1);
+        if (splitHeightWidget.visible) {
+            graphics.centeredText(font, Component.translatable("gui.simplevoiceanimations.settings.split_height.description"), width / 2, splitHeightWidget.getY() - 12, 0xFFAAAAAA);
+        }
     }
 
     @Override

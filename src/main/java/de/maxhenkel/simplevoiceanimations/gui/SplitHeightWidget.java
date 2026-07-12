@@ -1,5 +1,6 @@
 package de.maxhenkel.simplevoiceanimations.gui;
 
+import de.maxhenkel.simplevoiceanimations.SimpleVoiceAnimationsClient;
 import de.maxhenkel.simplevoiceanimations.sync.Preferences;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -17,11 +18,8 @@ public class SplitHeightWidget extends AbstractWidget {
     private static final int BAR_OVERHANG = 8;
     private static final float HEAD_PIXELS = 8F;
 
-    private final Preferences preferences;
-
-    public SplitHeightWidget(int x, int y, int faceSize, Preferences preferences) {
+    public SplitHeightWidget(int x, int y, int faceSize) {
         super(x, y, faceSize + BAR_OVERHANG * 2, faceSize, Component.translatable("gui.simplevoiceanimations.settings.split_height"));
-        this.preferences = preferences;
     }
 
     @Override
@@ -31,8 +29,8 @@ public class SplitHeightWidget extends AbstractWidget {
             return;
         }
         PlayerFaceExtractor.extractRenderState(graphics, player.getSkin(), getX() + BAR_OVERHANG, getY(), getHeight());
-        int barY = getY() + Math.round(getHeight() - preferences.getHeadSplitHeight() / HEAD_PIXELS * getHeight());
-        graphics.fill(getX(), barY - 1, getRight(), barY + 1, 0xFFFFFFFF);
+        int barY = getY() + Math.round(getHeight() - SimpleVoiceAnimationsClient.CLIENT_CONFIG.getHeadSplitHeight() / HEAD_PIXELS * getHeight());
+        graphics.fill(getX(), barY - 1, getRight(), barY + 1, isHoveredOrFocused() ? 0xFFFFFFFF : 0xFFAAAAAA);
     }
 
     @Override
@@ -48,7 +46,7 @@ public class SplitHeightWidget extends AbstractWidget {
     private void setSplitHeightFromMouse(double mouseY) {
         float splitHeight = (float) (getY() + getHeight() - mouseY) / getHeight() * HEAD_PIXELS;
         splitHeight = Math.round(splitHeight * 2F) / 2F;
-        preferences.setHeadSplitHeight(Mth.clamp(splitHeight, Preferences.MIN_SPLIT_HEIGHT, Preferences.MAX_SPLIT_HEIGHT));
+        SimpleVoiceAnimationsClient.CLIENT_CONFIG.setHeadSplitHeight(Mth.clamp(splitHeight, Preferences.MIN_SPLIT_HEIGHT, Preferences.MAX_SPLIT_HEIGHT));
     }
 
     @Override

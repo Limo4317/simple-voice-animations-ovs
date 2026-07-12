@@ -67,10 +67,20 @@ public class ClientConfig {
     }
 
     public enum HeadAnimationStyle {
-        NONE,
-        SCALE_Y,
-        SCALE_FULL,
-        SPLIT
+        NONE(false),
+        SCALE_Y(false),
+        SCALE_FULL(false),
+        SPLIT(true);
+
+        private final boolean hasSplit;
+
+        HeadAnimationStyle(boolean hasSplit) {
+            this.hasSplit = hasSplit;
+        }
+
+        public boolean hasSplit() {
+            return hasSplit;
+        }
     }
 
 }
