@@ -1,5 +1,6 @@
 package de.maxhenkel.simplevoiceanimations;
 
+import de.maxhenkel.simplevoiceanimations.gui.AnimationSettingsScreen;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.client.Minecraft;
 
@@ -13,7 +14,7 @@ public class KeyEvents {
                 return;
             }
             if (SimpleVoiceAnimationsClient.SETTINGS.consumeClick()) {
-                //TODO Implement cloth config GUI
+                mc.gui.setScreen(new AnimationSettingsScreen());
             }
         });
     }
