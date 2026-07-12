@@ -12,7 +12,7 @@ public class KeyEvents {
             if (mc.player == null) {
                 return;
             }
-            if (SimpleVoiceAnimations.SETTINGS.consumeClick()) {
+            if (SimpleVoiceAnimationsClient.SETTINGS.consumeClick()) {
                 //TODO Implement cloth config GUI
             }
         });

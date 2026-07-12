@@ -13,8 +13,6 @@ import java.util.UUID;
 
 public class SimpleVoiceChatPlugin implements VoicechatPlugin {
 
-    private static final Minecraft MC = Minecraft.getInstance();
-
     @Override
     public String getPluginId() {
         return SimpleVoiceAnimations.MODID;
@@ -28,7 +26,7 @@ public class SimpleVoiceChatPlugin implements VoicechatPlugin {
 
     private void onReceiveSound(ClientReceiveSoundEvent.EntitySound event) {
         UUID id = event.getEntityId();
-        ClientLevel level = MC.level;
+        ClientLevel level = Minecraft.getInstance().level;
         if (level == null) {
             return;
         }
@@ -37,7 +35,7 @@ public class SimpleVoiceChatPlugin implements VoicechatPlugin {
     }
 
     private void onOwnSound(ClientSoundEvent event) {
-        LocalPlayer player = MC.player;
+        LocalPlayer player = Minecraft.getInstance().player;
         if (player == null) {
             return;
         }

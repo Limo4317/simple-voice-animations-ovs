@@ -1,37 +1,27 @@
 package de.maxhenkel.simplevoiceanimations;
 
-import de.maxhenkel.simplevoiceanimations.config.ClientConfig;
-import de.maxhenkel.configbuilder.ConfigBuilder;
-import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
-import net.minecraft.client.KeyMapping;
-import net.minecraft.client.Minecraft;
+import de.maxhenkel.simplevoiceanimations.sync.PlayerPreferencesPayload;
+import de.maxhenkel.simplevoiceanimations.sync.ServerPreferencesSync;
+import de.maxhenkel.simplevoiceanimations.sync.UpdatePreferencesPayload;
+import de.maxhenkel.simplevoiceanimations.sync.VersionPayload;
+import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.lwjgl.glfw.GLFW;
 
-@Environment(EnvType.CLIENT)
-public class SimpleVoiceAnimations implements ClientModInitializer {
+public class SimpleVoiceAnimations implements ModInitializer {
 
     public static final String MODID = "simplevoiceanimations";
     public static final Logger LOGGER = LogManager.getLogger(MODID);
-    public static ClientConfig CLIENT_CONFIG;
-    public static KeyEvents KEY_EVENTS;
-
-    public static KeyMapping SETTINGS;
+    public static final int COMPATIBILITY_VERSION = 1;
 
     @Override
-    public void onInitializeClient() {
-        KEY_EVENTS = new KeyEvents();
-
-        SETTINGS = KeyMappingHelper.registerKeyMapping(new KeyMapping("key.simplevoiceanimations.settings", GLFW.GLFW_KEY_J, KeyMapping.Category.MISC));
-
-        Minecraft mc = Minecraft.getInstance();
-        CLIENT_CONFIG = ConfigBuilder
-                .builder(ClientConfig::new)
-                .path(mc.gameDirectory.toPath().resolve("config").resolve(MODID).resolve("simplevoiceanimations.properties"))
-                .build();
+    public void onInitialize() {
+        PayloadTypeRegistry.clientboundConfiguration().register(VersionPayload.TYPE, VersionPayload.CODEC);
+        PayloadTypeRegistry.serverboundConfiguration().register(VersionPayload.TYPE, VersionPayload.CODEC);
+        PayloadTypeRegistry.serverboundPlay().register(UpdatePreferencesPayload.TYPE, UpdatePreferencesPayload.CODEC);
+        PayloadTypeRegistry.clientboundPlay().register(PlayerPreferencesPayload.TYPE, PlayerPreferencesPayload.CODEC);
+        ServerPreferencesSync.init();
     }
+
 }
