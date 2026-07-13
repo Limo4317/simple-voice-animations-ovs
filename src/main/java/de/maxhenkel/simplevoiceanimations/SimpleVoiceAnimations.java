@@ -13,7 +13,7 @@ public class SimpleVoiceAnimations implements ModInitializer {
 
     public static final String MODID = "simplevoiceanimations";
     public static final Logger LOGGER = LogManager.getLogger(MODID);
-    public static final int COMPATIBILITY_VERSION = 1;
+    public static final int COMPATIBILITY_VERSION = 2;
 
     @Override
     public void onInitialize() {

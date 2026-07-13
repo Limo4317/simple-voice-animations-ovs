@@ -11,10 +11,11 @@ import javax.annotation.Nullable;
 
 public class ClientConfig {
 
-    public static Preferences DEFAULT_PREFERENCES = new Preferences(HeadAnimationStyle.NONE, 2F);
+    public static Preferences DEFAULT_PREFERENCES = new Preferences(HeadAnimationStyle.NONE, 2F, Preferences.DEFAULT_INTENSITY);
 
     private final EnumConfigEntry<HeadAnimationStyle> headAnimationStyle;
     private final FloatConfigEntry headSplitHeight;
+    private final FloatConfigEntry intensity;
     private final BooleanConfigEntry setUp;
 
     @Nullable
@@ -24,6 +25,9 @@ public class ClientConfig {
         headAnimationStyle = builder.enumEntry("head_animation_style", DEFAULT_PREFERENCES.getHeadAnimationStyle());
         headSplitHeight = builder.floatEntry("head_split_height", DEFAULT_PREFERENCES.getHeadSplitHeight(), Preferences.MIN_SPLIT_HEIGHT, Preferences.MAX_SPLIT_HEIGHT,
                 "The height of the head split in pixels, measured from the bottom of the head"
+        );
+        intensity = builder.floatEntry("intensity", DEFAULT_PREFERENCES.getIntensity(), Preferences.MIN_INTENSITY, Preferences.MAX_INTENSITY,
+                "How strongly the head animation reacts to the voice, where 1 is the default strength"
         );
         setUp = builder.booleanEntry("set_up", false,
                 "If the player has configured their head animation"
@@ -59,9 +63,19 @@ public class ClientConfig {
         ClientPreferencesSync.sendLocalPreferences();
     }
 
+    public float getIntensity() {
+        return intensity.get();
+    }
+
+    public void setIntensity(float intensityValue) {
+        intensity.set(intensityValue).save();
+        getLocalPreferences().setIntensity(intensity.get());
+        ClientPreferencesSync.sendLocalPreferences();
+    }
+
     public Preferences getLocalPreferences() {
         if (localPreferences == null) {
-            localPreferences = new Preferences(headAnimationStyle.get(), headSplitHeight.get());
+            localPreferences = new Preferences(headAnimationStyle.get(), headSplitHeight.get(), intensity.get());
         }
         return localPreferences;
     }

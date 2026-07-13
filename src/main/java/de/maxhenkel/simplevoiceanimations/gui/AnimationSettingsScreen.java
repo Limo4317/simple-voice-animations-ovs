@@ -16,6 +16,7 @@ public class AnimationSettingsScreen extends Screen {
 
     private static final int FACE_SIZE = 64;
 
+    private IntensitySliderWidget intensitySliderWidget;
     private SplitHeightWidget splitHeightWidget;
 
     public AnimationSettingsScreen() {
@@ -28,14 +29,20 @@ public class AnimationSettingsScreen extends Screen {
                 .withValues(ClientConfig.HeadAnimationStyle.values())
                 .create(width / 2 - 125, 26, 250, 20, Component.translatable("gui.simplevoiceanimations.settings.style"), (button, style) -> {
                     SimpleVoiceAnimationsClient.CLIENT_CONFIG.setHeadAnimationStyle(style);
-                    splitHeightWidget.visible = style.hasSplit();
+                    updateStyleWidgets(style);
                 }));
-        addRenderableWidget(new PlayerPreviewWidget(width / 2 - 30, 48, 60, 80, 30F));
-        splitHeightWidget = new SplitHeightWidget(0, 144, FACE_SIZE);
+        intensitySliderWidget = addRenderableWidget(new IntensitySliderWidget(width / 2 - 125, 50, 250, 20));
+        addRenderableWidget(new PlayerPreviewWidget(width / 2 - 30, 72, 60, 80, 30F));
+        splitHeightWidget = new SplitHeightWidget(0, 168, FACE_SIZE);
         splitHeightWidget.setX(width / 2 - splitHeightWidget.getWidth() / 2);
-        splitHeightWidget.visible = SimpleVoiceAnimationsClient.CLIENT_CONFIG.getHeadAnimationStyle().hasSplit();
         addRenderableWidget(splitHeightWidget);
         addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, button -> onClose()).bounds(width / 2 - 75, height - 28, 150, 20).build());
+        updateStyleWidgets(SimpleVoiceAnimationsClient.CLIENT_CONFIG.getHeadAnimationStyle());
+    }
+
+    private void updateStyleWidgets(ClientConfig.HeadAnimationStyle style) {
+        intensitySliderWidget.visible = style != ClientConfig.HeadAnimationStyle.NONE;
+        splitHeightWidget.visible = style.hasSplit();
     }
 
     @Override
@@ -52,6 +59,7 @@ public class AnimationSettingsScreen extends Screen {
         Preferences preferences = SimpleVoiceAnimationsClient.CLIENT_CONFIG.getLocalPreferences();
         SimpleVoiceAnimationsClient.CLIENT_CONFIG.setHeadAnimationStyle(preferences.getHeadAnimationStyle());
         SimpleVoiceAnimationsClient.CLIENT_CONFIG.setHeadSplitHeight(preferences.getHeadSplitHeight());
+        SimpleVoiceAnimationsClient.CLIENT_CONFIG.setIntensity(preferences.getIntensity());
         super.onClose();
     }
 

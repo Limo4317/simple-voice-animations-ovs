@@ -1,0 +1,1 @@
+- Added animation intensity slider

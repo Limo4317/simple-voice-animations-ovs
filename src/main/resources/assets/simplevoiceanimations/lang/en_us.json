@@ -9,6 +9,7 @@
   "gui.simplevoiceanimations.settings.style.scale_full": "Scale",
   "gui.simplevoiceanimations.settings.style.split_hinge": "Split Head (Hinge)",
   "gui.simplevoiceanimations.settings.style.split_vertical": "Split Head (Vertical)",
+  "gui.simplevoiceanimations.settings.intensity": "Animation Intensity: %s%%",
   "gui.simplevoiceanimations.settings.split_height": "Split Height",
   "gui.simplevoiceanimations.settings.split_height.description": "Drag the bar to set where the head splits open"
 }

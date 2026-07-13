@@ -12,8 +12,9 @@ import net.minecraft.world.entity.Avatar;
 
 public class RenderStateExtractor {
 
-    private static final float MAX_HEAD_SPLIT_ROTATION = Mth.DEG_TO_RAD * 60F;
-    private static final float MAX_HEAD_SPLIT_DISTANCE = 0.25F;
+    private static final float DEFAULT_HEAD_SPLIT_ROTATION = Mth.DEG_TO_RAD * 45F;
+    private static final float DEFAULT_HEAD_SPLIT_DISTANCE = 0.2F;
+    private static final float DEFAULT_HEAD_SCALE = 0.25F;
 
     public static <AvatarlikeEntity extends Avatar & ClientAvatarEntity> void extractRenderState(AvatarlikeEntity entity, AvatarRenderState state, float partialTicks, AnimationDataExtension entityExtension, AnimationRenderExtension stateExtension) {
         Preferences preferences = ClientPreferencesSync.getPreferences(entity.getUUID());
@@ -27,12 +28,13 @@ public class RenderStateExtractor {
         renderState.splitHead = false;
         renderState.headSplitRotation = 0F;
         renderState.headSplitDistance = 0F;
+        animationProgress *= preferences.getIntensity();
         switch (preferences.getHeadAnimationStyle()) {
             case SCALE_Y:
-                renderState.headYScale = 1F + animationProgress * 0.5F;
+                renderState.headYScale = 1F + animationProgress * DEFAULT_HEAD_SCALE;
                 break;
             case SCALE_FULL:
-                float scale = 1F + animationProgress * 0.5F;
+                float scale = 1F + animationProgress * DEFAULT_HEAD_SCALE;
                 renderState.headXScale = scale;
                 renderState.headYScale = scale;
                 renderState.headZScale = scale;
@@ -40,12 +42,12 @@ public class RenderStateExtractor {
             case SPLIT_HINGE:
                 renderState.splitHead = true;
                 renderState.headSplitHeight = preferences.getHeadSplitHeight();
-                renderState.headSplitRotation = animationProgress * MAX_HEAD_SPLIT_ROTATION;
+                renderState.headSplitRotation = animationProgress * DEFAULT_HEAD_SPLIT_ROTATION;
                 break;
             case SPLIT_VERTICAL:
                 renderState.splitHead = true;
                 renderState.headSplitHeight = preferences.getHeadSplitHeight();
-                renderState.headSplitDistance = animationProgress * MAX_HEAD_SPLIT_DISTANCE;
+                renderState.headSplitDistance = animationProgress * DEFAULT_HEAD_SPLIT_DISTANCE;
                 break;
         }
     }
