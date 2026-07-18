@@ -3,6 +3,7 @@ package de.maxhenkel.simplevoiceanimations.gui;
 import de.maxhenkel.simplevoiceanimations.SimpleVoiceAnimationsClient;
 import de.maxhenkel.simplevoiceanimations.config.ClientConfig;
 import de.maxhenkel.simplevoiceanimations.sync.Preferences;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.CycleButton;
@@ -10,6 +11,7 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 
+import javax.annotation.Nullable;
 import java.util.Locale;
 
 public class AnimationSettingsScreen extends Screen {
@@ -18,9 +20,16 @@ public class AnimationSettingsScreen extends Screen {
 
     private IntensitySliderWidget intensitySliderWidget;
     private SplitHeightWidget splitHeightWidget;
+    @Nullable
+    private final Screen parent;
 
     public AnimationSettingsScreen() {
+        this(null);
+    }
+
+    public AnimationSettingsScreen(@Nullable Screen parent) {
         super(Component.translatable("gui.simplevoiceanimations.settings.title"));
+        this.parent = parent;
     }
 
     @Override
@@ -60,7 +69,7 @@ public class AnimationSettingsScreen extends Screen {
         SimpleVoiceAnimationsClient.CLIENT_CONFIG.setHeadAnimationStyle(preferences.getHeadAnimationStyle());
         SimpleVoiceAnimationsClient.CLIENT_CONFIG.setHeadSplitHeight(preferences.getHeadSplitHeight());
         SimpleVoiceAnimationsClient.CLIENT_CONFIG.setIntensity(preferences.getIntensity());
-        super.onClose();
+        Minecraft.getInstance().gui.setScreen(parent);
     }
 
     private static Component getStyleName(ClientConfig.HeadAnimationStyle style) {

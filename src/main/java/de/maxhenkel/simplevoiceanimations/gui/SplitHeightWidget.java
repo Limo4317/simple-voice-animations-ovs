@@ -2,13 +2,12 @@ package de.maxhenkel.simplevoiceanimations.gui;
 
 import de.maxhenkel.simplevoiceanimations.SimpleVoiceAnimationsClient;
 import de.maxhenkel.simplevoiceanimations.sync.Preferences;
-import net.minecraft.client.Minecraft;
+import de.maxhenkel.simplevoiceanimations.utils.SkinUtils;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.PlayerFaceExtractor;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.input.MouseButtonEvent;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
@@ -24,11 +23,7 @@ public class SplitHeightWidget extends AbstractWidget {
 
     @Override
     protected void extractWidgetRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a) {
-        LocalPlayer player = Minecraft.getInstance().player;
-        if (player == null) {
-            return;
-        }
-        PlayerFaceExtractor.extractRenderState(graphics, player.getSkin(), getX() + BAR_OVERHANG, getY(), getHeight());
+        PlayerFaceExtractor.extractRenderState(graphics, SkinUtils.getLocalPlayerSkin(), getX() + BAR_OVERHANG, getY(), getHeight());
         int barY = getY() + Math.round(getHeight() - SimpleVoiceAnimationsClient.CLIENT_CONFIG.getHeadSplitHeight() / HEAD_PIXELS * getHeight());
         graphics.fill(getX(), barY - 1, getRight(), barY + 1, isHovered() ? 0xFFFFFFFF : 0xFFAAAAAA);
     }

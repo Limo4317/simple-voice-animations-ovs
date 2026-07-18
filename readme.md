@@ -35,3 +35,4 @@ Choose your animation style and drag the bar in the preview to set where your he
 ## Requirements
 
 - [Simple Voice Chat](https://modrinth.com/mod/simple-voice-chat)
+- [ModMenu](https://modrinth.com/mod/modmenu) (Optional)

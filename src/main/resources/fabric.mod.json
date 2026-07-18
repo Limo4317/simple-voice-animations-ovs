@@ -23,6 +23,9 @@
     ],
     "voicechat": [
       "de.maxhenkel.simplevoiceanimations.SimpleVoiceChatPlugin"
+    ],
+    "modmenu": [
+      "de.maxhenkel.simplevoiceanimations.modmenu.ModMenuIntegration"
     ]
   },
   "mixins": [
@@ -36,5 +39,8 @@
   "breaks": {
     "fabric-api": "${fabric_api_dependency_breaks}",
     "voicechat_api": "<${voicechat_api_version}"
+  },
+  "suggests": {
+    "modmenu": "*"
   }
 }

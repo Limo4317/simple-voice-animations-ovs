@@ -19,7 +19,6 @@ processResources {
 }
 
 repositories {
-    maven { url = 'https://maven.shedaniel.me/' }
     maven { url = 'https://maven.terraformersmc.com/releases' }
 }
 
@@ -27,4 +26,6 @@ dependencies {
     implementation "de.maxhenkel.voicechat:voicechat-api:${voicechat_api_version}"
     runtimeOnly "de.maxhenkel.voicechat:voicechat-api:${voicechat_api_version}:fabric-stub"
     runtimeOnly "maven.modrinth:simple-voice-chat:fabric-${voicechat_mod_version}"
+
+    implementation "com.terraformersmc:modmenu:${modmenu_version}"
 }
