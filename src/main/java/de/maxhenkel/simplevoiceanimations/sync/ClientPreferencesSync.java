@@ -30,10 +30,7 @@ public class ClientPreferencesSync {
     }
 
     public static void sendLocalPreferences() {
-        if (Minecraft.getInstance().getConnection() == null) {
-            return;
-        }
-        if (!ClientPlayNetworking.canSend(UpdatePreferencesPayload.TYPE)) {
+        if (!canSyncPreferences()) {
             return;
         }
         ClientPlayNetworking.send(new UpdatePreferencesPayload(SimpleVoiceAnimationsClient.CLIENT_CONFIG.getLocalPreferences()));
@@ -45,10 +42,18 @@ public class ClientPreferencesSync {
         if (player != null && playerId.equals(player.getUUID())) {
             return SimpleVoiceAnimationsClient.CLIENT_CONFIG.getLocalPreferences();
         }
-        if (!PREFERENCES.containsKey(playerId)) {
-            return ClientConfig.DEFAULT_PREFERENCES;
+        Preferences preferences = PREFERENCES.get(playerId);
+        if (preferences != null) {
+            return preferences;
         }
-        return PREFERENCES.get(playerId);
+        if (SimpleVoiceAnimationsClient.CLIENT_CONFIG.isFallbackToOwnAnimations() && !canSyncPreferences()) {
+            return SimpleVoiceAnimationsClient.CLIENT_CONFIG.getLocalPreferences();
+        }
+        return ClientConfig.DEFAULT_PREFERENCES;
+    }
+
+    private static boolean canSyncPreferences() {
+        return Minecraft.getInstance().getConnection() != null && ClientPlayNetworking.canSend(UpdatePreferencesPayload.TYPE);
     }
 
 }

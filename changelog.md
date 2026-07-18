@@ -1,1 +1,2 @@
 - Added animation intensity slider
+- Added `fallback_to_own_animations` config option

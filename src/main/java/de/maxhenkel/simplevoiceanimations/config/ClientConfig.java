@@ -16,6 +16,7 @@ public class ClientConfig {
     private final EnumConfigEntry<HeadAnimationStyle> headAnimationStyle;
     private final FloatConfigEntry headSplitHeight;
     private final FloatConfigEntry intensity;
+    private final BooleanConfigEntry fallbackToOwnAnimations;
     private final BooleanConfigEntry setUp;
 
     @Nullable
@@ -28,6 +29,9 @@ public class ClientConfig {
         );
         intensity = builder.floatEntry("intensity", DEFAULT_PREFERENCES.getIntensity(), Preferences.MIN_INTENSITY, Preferences.MAX_INTENSITY,
                 "How strongly the head animation reacts to the voice, where 1 is the default strength"
+        );
+        fallbackToOwnAnimations = builder.booleanEntry("fallback_to_own_animations", true,
+                "If the server does not have the mod installed and thus can't sync animation settings, your own animation settings are applied to all other players"
         );
         setUp = builder.booleanEntry("set_up", false,
                 "If the player has configured their head animation"
@@ -65,6 +69,10 @@ public class ClientConfig {
 
     public float getIntensity() {
         return intensity.get();
+    }
+
+    public boolean isFallbackToOwnAnimations() {
+        return fallbackToOwnAnimations.get();
     }
 
     public void setIntensity(float intensityValue) {
