@@ -32,7 +32,7 @@ public class SimpleVoiceAnimationsClient implements ClientModInitializer {
         Minecraft mc = Minecraft.getInstance();
         CLIENT_CONFIG = ConfigBuilder
                 .builder(ClientConfig::new)
-                .path(mc.gameDirectory.toPath().resolve("config").resolve(SimpleVoiceAnimations.MODID).resolve("simplevoiceanimations.properties"))
+                .path(mc.gameDirectory.toPath().resolve("config").resolve(SimpleVoiceAnimations.MODID).resolve("simplevoiceanimations-client.properties"))
                 .build();
 
         ClientPreferencesSync.init();
