@@ -8,6 +8,7 @@ public class Preferences {
 
     public static final float MIN_SPLIT_HEIGHT = 0.5F;
     public static final float MAX_SPLIT_HEIGHT = 7.5F;
+    public static final float DEFAULT_SPLIT_HEIGHT = 2F;
     public static final float MIN_INTENSITY = 0F;
     public static final float MAX_INTENSITY = 2F;
     public static final float DEFAULT_INTENSITY = 1F;

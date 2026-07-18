@@ -11,7 +11,7 @@ import javax.annotation.Nullable;
 
 public class ClientConfig {
 
-    public static Preferences DEFAULT_PREFERENCES = new Preferences(HeadAnimationStyle.NONE, 2F, Preferences.DEFAULT_INTENSITY);
+    public static Preferences DEFAULT_PREFERENCES = new Preferences(HeadAnimationStyle.NONE, Preferences.DEFAULT_SPLIT_HEIGHT, Preferences.DEFAULT_INTENSITY);
 
     private final EnumConfigEntry<HeadAnimationStyle> headAnimationStyle;
     private final FloatConfigEntry headSplitHeight;

@@ -4,6 +4,7 @@ Animates player heads using [Simple Voice Chat](https://modrinth.com/mod/simple-
 
 Each player chooses their own animation style.
 If the mod is installed on the server, everyone's animation settings are synced to all other players.
+Players without the mod on their client use the style set in the `default_head_animation_style` server config option.
 On servers without the mod, your own animation settings are applied to all other players instead (can be disabled with the `fallback_to_own_animations` config option).
 
 ## Animation Styles

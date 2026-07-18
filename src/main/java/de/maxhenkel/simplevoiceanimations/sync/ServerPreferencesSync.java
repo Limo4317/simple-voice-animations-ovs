@@ -8,6 +8,7 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.ConfigurationTask;
 
@@ -37,21 +38,27 @@ public class ServerPreferencesSync {
             context.packetListener().completeTask(VERSION_TASK);
         });
         ServerPlayNetworking.registerGlobalReceiver(UpdatePreferencesPayload.TYPE, (payload, context) -> {
-            PREFERENCES.put(context.player().getUUID(), payload.preferences());
-            PlayerPreferencesPayload update = new PlayerPreferencesPayload(context.player().getUUID(), payload.preferences());
-            for (ServerPlayer player : PlayerLookup.all(context.server())) {
-                if (ServerPlayNetworking.canSend(player, PlayerPreferencesPayload.TYPE)) {
-                    ServerPlayNetworking.send(player, update);
-                }
-            }
+            broadcastPreferences(context.server(), context.player().getUUID(), payload.preferences());
         });
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
             if (!ServerPlayNetworking.canSend(handler.player, PlayerPreferencesPayload.TYPE)) {
+                // Players without the mod get the animation style configured in the server config
+                broadcastPreferences(server, handler.player.getUUID(), SimpleVoiceAnimations.SERVER_CONFIG.getDefaultPreferences());
                 return;
             }
             PREFERENCES.forEach((uuid, preferences) -> sender.sendPacket(new PlayerPreferencesPayload(uuid, preferences)));
         });
         ServerPlayConnectionEvents.DISCONNECT.register((handler, server) -> PREFERENCES.remove(handler.player.getUUID()));
+    }
+
+    private static void broadcastPreferences(MinecraftServer server, UUID playerId, Preferences preferences) {
+        PREFERENCES.put(playerId, preferences);
+        PlayerPreferencesPayload update = new PlayerPreferencesPayload(playerId, preferences);
+        for (ServerPlayer player : PlayerLookup.all(server)) {
+            if (ServerPlayNetworking.canSend(player, PlayerPreferencesPayload.TYPE)) {
+                ServerPlayNetworking.send(player, update);
+            }
+        }
     }
 
     private static class VersionConfigurationTask implements ConfigurationTask {
