@@ -1,2 +1,3 @@
 - Added animation intensity slider
 - Added `fallback_to_own_animations` config option
+- Fixed crash when loading the mod on servers
