@@ -30,6 +30,13 @@ public class RenderStateExtractor {
         renderState.headSplitDistance = 0F;
         animationProgress *= preferences.getIntensity();
         switch (preferences.getHeadAnimationStyle()) {
+            case SQUISH:
+                float yScale = 1F + animationProgress * DEFAULT_HEAD_SCALE;
+                float xzScale = 1F / Mth.sqrt(yScale);
+                renderState.headXScale = xzScale;
+                renderState.headYScale = yScale;
+                renderState.headZScale = xzScale;
+                break;
             case SCALE_Y:
                 renderState.headYScale = 1F + animationProgress * DEFAULT_HEAD_SCALE;
                 break;

@@ -1,5 +1,1 @@
-- Added animation intensity slider
-- Added `fallback_to_own_animations` config option
-- Added `default_head_animation_style` server config option
-- Added ModMenu support
-- Fixed crash when loading the mod on servers
+- Added squish animation style

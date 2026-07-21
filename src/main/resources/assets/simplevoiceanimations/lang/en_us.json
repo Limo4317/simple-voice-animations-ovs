@@ -5,6 +5,7 @@
   "gui.simplevoiceanimations.settings.title": "Simple Voice Animations",
   "gui.simplevoiceanimations.settings.style": "Head Animation Style",
   "gui.simplevoiceanimations.settings.style.none": "None",
+  "gui.simplevoiceanimations.settings.style.squish": "Squish",
   "gui.simplevoiceanimations.settings.style.scale_y": "Scale Height",
   "gui.simplevoiceanimations.settings.style.scale_full": "Scale",
   "gui.simplevoiceanimations.settings.style.split_hinge": "Split Head (Hinge)",

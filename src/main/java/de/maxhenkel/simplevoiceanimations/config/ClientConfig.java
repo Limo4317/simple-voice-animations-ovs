@@ -90,6 +90,7 @@ public class ClientConfig {
 
     public enum HeadAnimationStyle {
         NONE(false),
+        SQUISH(false),
         SCALE_Y(false),
         SCALE_FULL(false),
         SPLIT_HINGE(true),

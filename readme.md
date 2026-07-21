@@ -9,6 +9,10 @@ On servers without the mod, your own animation settings are applied to all other
 
 ## Animation Styles
 
+**Squish** - The head squishes while talking.
+
+![](assets/squish.gif)
+
 **Scale Height** - The head stretches vertically while talking.
 
 ![](assets/scale_height.gif)
