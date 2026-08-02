@@ -16,7 +16,7 @@ public class SimpleVoiceAnimations implements ModInitializer {
 
     public static final String MODID = "simplevoiceanimations";
     public static final Logger LOGGER = LogManager.getLogger(MODID);
-    public static final int COMPATIBILITY_VERSION = 3;
+    public static final int COMPATIBILITY_VERSION = 4;
 
     public static ServerConfig SERVER_CONFIG;
 

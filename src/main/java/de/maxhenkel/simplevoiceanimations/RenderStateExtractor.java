@@ -15,6 +15,7 @@ public class RenderStateExtractor {
     private static final float DEFAULT_HEAD_SPLIT_ROTATION = Mth.DEG_TO_RAD * 45F;
     private static final float DEFAULT_HEAD_SPLIT_DISTANCE = 0.2F;
     private static final float DEFAULT_HEAD_SCALE = 0.25F;
+    private static final float DEFAULT_HEAD_NOD_ROTATION = Mth.DEG_TO_RAD * 20F;
 
     public static <AvatarlikeEntity extends Avatar & ClientAvatarEntity> void extractRenderState(AvatarlikeEntity entity, AvatarRenderState state, float partialTicks, AnimationDataExtension entityExtension, AnimationRenderExtension stateExtension) {
         Preferences preferences = ClientPreferencesSync.getPreferences(entity.getUUID());
@@ -25,6 +26,7 @@ public class RenderStateExtractor {
         renderState.headXScale = 1F;
         renderState.headYScale = 1F;
         renderState.headZScale = 1F;
+        renderState.headXRot = 0F;
         renderState.splitHead = false;
         renderState.headSplitRotation = 0F;
         renderState.headSplitDistance = 0F;
@@ -55,6 +57,9 @@ public class RenderStateExtractor {
                 renderState.splitHead = true;
                 renderState.headSplitHeight = preferences.getHeadSplitHeight();
                 renderState.headSplitDistance = animationProgress * DEFAULT_HEAD_SPLIT_DISTANCE;
+                break;
+            case NOD:
+                renderState.headXRot = animationProgress * DEFAULT_HEAD_NOD_ROTATION;
                 break;
         }
     }

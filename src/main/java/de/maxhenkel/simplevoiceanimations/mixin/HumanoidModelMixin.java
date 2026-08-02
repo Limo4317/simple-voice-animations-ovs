@@ -6,6 +6,7 @@ import de.maxhenkel.simplevoiceanimations.interfaces.SplitHeadExtension;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
+import net.minecraft.util.Mth;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -33,6 +34,7 @@ public class HumanoidModelMixin {
         head.xScale = state.headXScale;
         head.yScale = state.headYScale;
         head.zScale = state.headZScale;
+        head.xRot = Mth.clamp(head.xRot + state.headXRot, -Mth.HALF_PI, Mth.HALF_PI);
         ((SplitHeadExtension) (Object) head).simplevoiceanimations$setSplitHead(state.splitHead, state.headSplitHeight, state.headSplitRotation, state.headSplitDistance);
         ((SplitHeadExtension) (Object) hat).simplevoiceanimations$setSplitHead(state.splitHead, state.headSplitHeight, state.headSplitRotation, state.headSplitDistance);
     }

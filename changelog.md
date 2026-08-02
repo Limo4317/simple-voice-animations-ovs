@@ -1,1 +1,1 @@
-- Added squish animation style
+- Added nod animation style

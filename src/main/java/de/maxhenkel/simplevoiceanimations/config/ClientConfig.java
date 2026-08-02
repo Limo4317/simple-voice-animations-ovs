@@ -94,7 +94,8 @@ public class ClientConfig {
         SCALE_Y(false),
         SCALE_FULL(false),
         SPLIT_HINGE(true),
-        SPLIT_VERTICAL(true);
+        SPLIT_VERTICAL(true),
+        NOD(false);
 
         private final boolean hasSplit;
 
