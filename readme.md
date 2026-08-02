@@ -28,8 +28,11 @@ On servers without the mod, your own animation settings are applied to all other
 **Split Head (Vertical)** - The upper part of the head lifts straight up.
 
 ![](assets/split_vertical.gif)
+*The split height is configurable for both split styles.*
 
-The split height is configurable for both split styles.
+**Nod** - The head nods while talking.
+
+![](assets/nod.gif)
 
 ## Usage
 
