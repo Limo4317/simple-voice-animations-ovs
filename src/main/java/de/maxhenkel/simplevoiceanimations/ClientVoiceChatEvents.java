@@ -16,13 +16,16 @@ import java.util.UUID;
 @Environment(EnvType.CLIENT)
 public class ClientVoiceChatEvents {
 
-    public static void onReceiveSound(ClientReceiveSoundEvent.EntitySound event) {
-        UUID id = event.getEntityId();
+    public static void onReceiveSound(ClientReceiveSoundEvent event) {
+        UUID id = event.getId();
         ClientLevel level = Minecraft.getInstance().level;
         if (level == null) {
             return;
         }
         Player player = level.getPlayerByUUID(id);
+        if (player == null) {
+            return;
+        }
         processPlayerAudio(player, event.getRawAudio());
     }
 

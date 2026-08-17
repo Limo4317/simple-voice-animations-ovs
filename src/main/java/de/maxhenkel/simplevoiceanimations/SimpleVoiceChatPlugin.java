@@ -20,6 +20,8 @@ public class SimpleVoiceChatPlugin implements VoicechatPlugin {
             return;
         }
         registration.registerEvent(ClientReceiveSoundEvent.EntitySound.class, ClientVoiceChatEvents::onReceiveSound);
+        registration.registerEvent(ClientReceiveSoundEvent.StaticSound.class, ClientVoiceChatEvents::onReceiveSound);
+        registration.registerEvent(ClientReceiveSoundEvent.EntitySound.class, ClientVoiceChatEvents::onReceiveSound);
         registration.registerEvent(ClientSoundEvent.class, ClientVoiceChatEvents::onOwnSound);
     }
 

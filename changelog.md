@@ -1,1 +1,1 @@
-- Added nod animation style
+- Fixed group audio not animated
