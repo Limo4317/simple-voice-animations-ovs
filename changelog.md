@@ -1,1 +1,1 @@
-- Fixed group audio not animated
+- Updated to 26.3
